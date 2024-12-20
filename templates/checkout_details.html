@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout Details</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body Styling */
+        body {
+            background-image: url('https://i.pinimg.com/originals/c3/e3/70/c3e3705832d33b3cfd4ceb6192ca63ae.gif');
+            background-repeat: no-repeat;
+            background-size: 100% 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Table Styling */
+        .table-container {
+            width: 90%;
+            margin: 20px auto;
+            overflow-x: auto; /* Enable horizontal scrolling for small screens */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            background-color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light gray for even rows */
+        }
+
+        tr:hover {
+            background-color: lightblue;
+        }
+
+        /* Back Button */
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 5%;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            width:75px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Flash Messages */
+        .message-container {
+            color: #d12c20;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .button-container {
+                justify-content: center;
+                margin: 10px;
+            }
+
+            .button {
+                /* width: 100%; */
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                font-size: 12px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message-container">
+                <marquee><h1>{{ message }}</h1></marquee>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- Back Button -->
+    <div class="button-container">
+        <a href="{{url_for('emp_dashboard')}}" class="button">Back</a>
+    </div>
+
+    <!-- Responsive Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Emp_Id</th>
+                    <th>Username</th>
+                    <th>Date</th>
+                    <th>Checkin_Time</th>
+                    <th>Checkout_Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ checkin_data[0] }}</td>
+                    <td>{{ checkin_data[1] }}</td>
+                    <td>{{ checkin_data[2] }}</td>
+                    <td>{{ checkin_data[3] }}</td>
+                    <td>{{ checkin_data[4] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>

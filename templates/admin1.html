@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin_dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Main body styling */
+        body {
+            background-image: url('https://mahtisagac.ir/wp-content/uploads/2022/10/giphy-6.gif');
+            background-repeat: no-repeat;
+            background-size: contain; /* Adjusted for full responsiveness */
+            background-position: left;
+            width: 100vw;
+           height:100vh ;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Content Section */
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1, h3 {
+            margin-top: 20px;
+            font-weight: bold;
+            color: rgb(149, 118, 223);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            animation: h 5s infinite;
+        }
+
+        @keyframes h {
+            0% {
+                text-shadow: 1px 2px rgb(12, 224, 41);
+            }
+            50% {
+                text-shadow: 1px 2px black;
+            }
+            100% {
+                text-shadow: 1px 2px red;
+            }
+        }
+
+        /* Top-right buttons styling */
+        .top-right-buttons {
+            position: absolute;
+            top: 12px;
+            right: 95px; /* Adjusted for smaller screens */
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap; /* Wrap buttons if space is limited */
+        }
+
+        .top-right-buttons button {
+            border: 1px solid #fff;
+            box-shadow: 0 4px 6px rgba(243, 239, 239, 0.6);
+            padding: 10px 15px;
+            background: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .top-right-buttons button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                background-size: 100% auto; /* Adjust for medium screens */
+            }
+
+            .content {
+                padding: 10px;
+            }
+
+            h1, h3 {
+                font-size: 1.5rem;
+            }
+
+            .top-right-buttons {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            .top-right-buttons button {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                background-size: cover; /* Ensure full image coverage */
+                background-position: top;
+            }
+
+            h1, h3 {
+                font-size: 1.2rem;
+            }
+
+            .top-right-buttons {
+                top: 10px;
+                right: 10px;
+                gap: 5px;
+            }
+
+            .top-right-buttons button {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>PAYROLL</h1>
+        <h3><b>---- Your Workforce, Our Priority!</b></h3>
+    </div>
+
+    <!-- Top-right Buttons -->
+    <div class="top-right-buttons">
+      
+        <button onclick="window.location.href='{{url_for('emp_signup')}}'">Emp_Signup</button>
+        <button onclick="window.location.href='{{url_for('emp_list')}}'">Emp_List</button>
+    
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>
+========================================================================
+<welcome class="html"></welcome>
+
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    *{
+        box-sizing: border-box;
+        margin:0;
+    }
+    /* Main body styling */
+    .main-content {
+        position: relative;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .main-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0.3, 0.3, 0, 0.4);
+        margin-top: 10px;
+    }
+
+    /* Buttons in the top-right corner */
+    .top-right-buttons {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap; /* Ensure buttons wrap on smaller screens*/
+    }
+
+    .top-right-buttons button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .top-right-buttons button:hover {
+        background-color: #0056b3;
+    }
+    .btn2{
+        text-decoration: none;
+        color:#fff;
+    
+    }
+    .btn2:hover{
+        background-color: #0056b3; 
+    }
+        /* Responsive design */
+    @media (max-width: 768px) {
+        .top-right-buttons {
+            flex-direction: column; /* Stack buttons vertically */
+            right: 10px; /* Adjust spacing */
+            top: 10px;
+        }
+
+        .top-right-buttons button {
+            width: 100%; /* Full-width buttons */
+            font-size: 14px; /* Smaller font size */
+        }
+
+        .main-content {
+            padding: 10px;
+        }
+
+        .main-image {
+            margin-top: 20px;
+            width: 100%; /* Ensure image doesn't overflow */
+            max-width: 100%;
+        }
+    }
+    @media (max-width: 480px) {
+        .top-right-buttons {
+            right: 5px;
+            top: 5px;
+        }
+
+        .top-right-buttons button {
+            padding: 8px 10px; /* Smaller padding for smaller screens */
+            font-size: 12px;
+        }
+
+        .main-image {
+            margin-top: 15px;
+        }
+    }
+
+</style>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        
+        {% for message in messages %}
+            <center style="color:blue;margin-top: 20px;"><h3>{{ message }}</h3></center>
+        {% endfor %}
+    
+    {% endif %}
+{% endwith %}
+
+<div class="main-content">
+    <!-- Buttons  -->
+    <div class="top-right-buttons">
+        <button onclick="window.location.href='#'" id="ones">Sign Up</button>
+        
+        <!-- <button onclick="window.location.href='#'" id="two">Login</button> -->
+         <a href="{{url_for('emp_login')}}"> <button class="btn2">Login</button></a>
+    </div>
+     <p id="mess"> </p>
+<script>
+    ones.addEventListener('click',()=>{
+     alert("To signup request a message to admin");
+    })
+    two.addEventListener('click',()=>{
+    alert("You have to signup first to Login ") 
+       
+     //  document.getElementById('mess').innerText="To login first signup";
+    //  document.getElementById('mess').style.color="red";
+  }) 
+ </script>
+     <!-- Main image  -->
+    <img src="https://cdni.iconscout.com/illustration/premium/thumb/freelancer-checking-salary-illustration-download-in-svg-png-gif-file-formats--get-on-bank-account-remote-work-payment-money-transfer-online-distance-job-payroll-filling-invoice-business-pack-illustrations-7796152.png?f=webp" alt="Welcome Image" class="main-image">
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

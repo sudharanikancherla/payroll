@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    /* Main body styling */
+    .main-content {
+        position: relative;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .main-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0.3, 0.3, 0, 0.4);
+        margin-top: 10px;
+    }
+
+    /* Desktop button layout */
+    .top-right-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin: 20px;
+    }
+
+    .top-right-buttons button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .top-right-buttons button:hover {
+        background-color: #0056b3;
+    }
+
+    .btn2 {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .btn2:hover {
+        background-color: #0056b3;
+    }
+
+    /* Hamburger menu for small screens */
+    .hamburger-menu {
+        display: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .hamburger-menu div {
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 5px 0;
+        transition: 0.4s;
+    }
+
+    .menu-dropdown {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    .menu-dropdown button {
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .top-right-buttons {
+            display: none; /* Hide buttons on smaller screens */
+        }
+
+        .hamburger-menu {
+            display: block; /* Show hamburger menu */
+        }
+
+        .menu-dropdown {
+            display: flex; /* Show dropdown menu */
+        }
+    }
+</style>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <center style="color:blue; margin-top: 20px;">
+            {% for message in messages %}
+                <h3>{{ message }}</h3>
+            {% endfor %}
+        </center>
+    {% endif %}
+{% endwith %}
+
+<div class="main-content">
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="menu-dropdown" id="menuDropdown">
+        <button id="signupButtonSmall">Sign Up</button>
+        <a href="{{ url_for('emp_login') }}"><button id="loginButtonSmall">Login</button></a>
+    </div>
+
+    <!-- Buttons for large screens -->
+    <div class="top-right-buttons">
+        <button id="signupButtonLarge">Sign Up</button>
+        <a href="{{ url_for('emp_login') }}"><button id="loginButtonLarge">Login</button></a>
+    </div>
+
+    <!-- Main image -->
+    <img src="https://cdni.iconscout.com/illustration/premium/thumb/freelancer-checking-salary-illustration-download-in-svg-png-gif-file-formats--get-on-bank-account-remote-work-payment-money-transfer-online-distance-job-payroll-filling-invoice-business-pack-illustrations-7796152.png?f=webp" 
+         alt="Freelancer using payroll app" 
+         class="main-image">
+</div>
+
+<script>
+    // Hamburger menu toggle logic
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const menuDropdown = document.getElementById('menuDropdown');
+
+    hamburgerMenu.addEventListener('click', () => {
+        if (menuDropdown.style.display === 'flex') {
+            menuDropdown.style.display = 'none';
+        } else {
+            menuDropdown.style.display = 'flex';
+        }
+    });
+
+    // Sign-up button logic
+    const signupButtonLarge = document.getElementById('signupButtonLarge');
+    const signupButtonSmall = document.getElementById('signupButtonSmall');
+
+    signupButtonLarge.addEventListener('click', () => {
+        alert("To sign up, request access from the admin.");
+    });
+
+    signupButtonSmall.addEventListener('click', () => {
+        alert("To sign up, request access from the admin.");
+    });
+</script>
+{% endblock %}

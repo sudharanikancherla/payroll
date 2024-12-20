@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkin_Details</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+        }
+        body{
+            /* background-image: url('https://i.gifer.com/7efs.gif'); */
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-dK5xlXHjYRaiw3Ftrnms0XFozgvHMvEqPrYHhaeqesEHV1dxJ_1kaJJSqP7LmR40JY&usqp=CAU');
+            background-repeat: no-repeat;
+            background-position:center ;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 70px;
+            margin-left: 8%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;/* It means it will show light ash color for every even number row */
+            
+        }
+        tr:hover {
+            
+            background-color: lightblue;
+        }
+         /* Search Bar Section
+         .backto-dashboard {
+            background-color: #007bff; /* Blue button */
+            /* color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            position: absolute; /* Allows placement anywhere */
+            /* top: 90px; /* Distance from the top of the page */
+            /* right: 20px; /* Distance from the right of the page */
+        */ */ */ */
+
+        /* .backto-dashboard:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+         */
+        .button-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            margin-top: 5%;
+            margin-right: 50px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-left: 90%;
+            margin-top: 2%;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .empdashboard {
+            text-decoration: none;
+            color:white;
+        }
+         /* Responsive Design */
+         @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+            }
+
+            .logo img {
+                height: 50px;
+            }
+            .button-container {
+                justify-content: center;
+                margin: 10px;
+            }
+
+            .button {
+                /* width: 100%; */
+                text-align: center;
+            }
+
+            .title h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+    
+</head>
+
+<body>
+    {% include 'header.html' %}
+    
+  
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <center style="color:#c86132; margin-top: 50px;">
+                <marquee><h1>{{ message }}</h1></marquee>
+            </center>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+    <a href="{{url_for('emp_dashboard')}}" class="empdashboard"><button class="button">Back</button></a>
+
+    <!-- <h1 style="color:red;text-align: center;">Check in Successful.</h1> -->
+    <table border="2">
+        <thead>
+            <tr>
+                <th>Emp_Id</th>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Checkin_Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if checkin_data %}
+            {% for data in checkin_data %}
+            <tr>
+                <td>{{data.emp_id}}</td>
+                <td>{{data.username}}</td>
+                <td>{{data.date}}</td>
+                <td>{{data.checkin_time}}</td>
+                
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="9" style="text-align: center;">No employee data available.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    {% include 'footer.html' %}
+</body>
+
+</html>

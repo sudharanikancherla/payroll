@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-left: 8%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f3f0f0;/* It means it will show light ash color for every even number row */
+            
+        }
+        tr:hover {
+            /* background-color: #f1f1f1; */
+            background-color: rgb(222, 226, 228);
+        }
+         
+        .button-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            margin-top: 5%;
+            margin-right: 50px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-left: 90%;
+            margin-top: 2%;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .empdashboard {
+            text-decoration: none;
+            color:white;
+        }
+         /* Responsive Design */
+         @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+            }
+
+            .logo img {
+                height: 50px;
+            }
+
+            .title h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+    
+</head>
+
+<body>
+    {% include 'header.html' %}
+    
+    <a href="{{url_for('emp_dashboard')}}" class="empdashboard"><button class="button">Back</button></a>
+
+    <h1 style="color:red; text-align: center;">Salary Details</h1>
+    <table border="2">
+        <thead>
+            <tr>
+                <th>Emp_Id</th>
+                <th>Username</th>
+                <th>Company Working Days</th>
+                <th>Employee Working Days</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if emp_data %}
+            {% for data in emp_data %}
+            <tr>
+                <td>{{data.emp_id}}</td>
+                <td>{{data.username}}</td>
+                <td>{{company_working_days}}</td>
+                <td>{{num_working_days}}</td>
+                <td>{{total_salary}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="9" style="text-align: center;">No employee data available.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    {% include 'footer.html' %}
+</body>
+
+</html>

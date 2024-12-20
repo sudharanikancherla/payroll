@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 10px;
+            color: crimson;
+        }
+
+        .flash-msg {
+            color: rgb(47, 20, 220);
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: crimson;
+            font-size: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light background for even rows */
+        }
+
+        tr:hover {
+            background-color: lightblue; /* Hover effect */
+        }
+
+        /* Back Button */
+        .back {
+            background-color: crimson;
+            color: white;
+            font-weight: bold;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .back:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Table */
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .flash-msg {
+                font-size: 18px;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            table {
+                border: 0;
+            }
+
+            table thead {
+                display: none; /* Hide table headers on small screens */
+            }
+
+            table, table tbody, table tr, table td {
+                display: block;
+                width: 100%;
+            }
+
+            table tr {
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            table td {
+                text-align: left;
+                padding-left: 50%;
+                position: relative;
+                font-size: 14px;
+            }
+
+            table td::before {
+                content: attr(data-label); /* Use data-label attribute for headers */
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
+                color: #555;
+            }
+
+            .back {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <h1>Employee Check-in Details</h1>
+    {% if message %}
+        <p class="flash-msg">{{ message }}</p>
+    {% endif %}
+
+    <!-- Responsive Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Emp_Id</th>
+                <th>FullName</th>
+                <th>Check-in Date</th>
+                <th>Check-in Time</th>
+                <th>Check-out Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in view_data %}
+                <tr>
+                    <td data-label="Emp_Id">{{ data[0] }}</td>
+                    <td data-label="FullName">{{ data[1] }}</td>
+                    <td data-label="Check-in Date">
+                        {% if data[2] is not none %}
+                            {{ data[2] }}
+                        {% else %}
+                            Not Checkin
+                        {% endif %}
+                    </td>
+                    <td data-label="Check-in Time">
+                        {% if data[3] is not none %}
+                            {{ data[3] }}
+                        {% else %}
+                            Not Checked In
+                        {% endif %}
+                    </td>
+                    <td data-label="Check-out Time">
+                        {% if data[4] is not none %}
+                            {{ data[4] }}
+                        {% else %}
+                            Not Checked Out
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="{{ url_for('emp_list') }}" class="back">Back to Emp_List</a>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>

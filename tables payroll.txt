@@ -1,0 +1,17 @@
+ CREATE TABLE emp_registration(emp_id varchar(20) NOT NULL,first_name varchar(50) NOT NULL,
+  last_name varchar(50) NOT NULL,designation varchar(20) NOT NULL,email varchar(50) NOT NULL,
+  password varchar(20) NOT NULL,address text,phone_number varchar(10) NOT NULL,department varchar(20) NOT NULL,
+  salary int unsigned NOT NULL,gender enum('Male','Female','Others') DEFAULT NULL,PRIMARY KEY (emp_id),
+  UNIQUE KEY email (email));
+
+
+CREATE TABLE emp_records(emp_id varchar(20) NOT NULL,username varchar(50) DEFAULT NULL,date date DEFAULT NULL,
+  checkin_time time DEFAULT NULL,checkout_time time DEFAULT NULL,KEY emp_id (emp_id),
+  CONSTRAINT emp_records_ibfk_1 FOREIGN KEY (emp_id) REFERENCES emp_registration (emp_id)); 
+
+CREATE TABLE otp(OID int NOT NULL AUTO_INCREMENT,Email varchar(80) DEFAULT NULL,otp varchar(9) DEFAULT NULL,
+  PRIMARY KEY (OID));
+
+
+CREATE TABLE work_status(emp_id varchar(20) NOT NULL,date datetime DEFAULT CURRENT_TIMESTAMP,work_status text NOT NULL,
+  KEY emp_id(emp_id),CONSTRAINT work_status_ibfk_1 FOREIGN KEY (emp_id) REFERENCES emp_registration(emp_id)); 

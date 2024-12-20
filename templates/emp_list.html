@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emp_list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        /* General Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #563d7c;
+            font-size: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e8f4ff;
+        }
+
+        /* Search Bar Section */
+        .search-bar {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-bar button {
+            border-radius: 0 4px 4px 0;
+            /* color: white; */
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-block;
+            margin-top: 3px;
+            margin-right: 30px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .search-bar form {
+                width: 50%;
+                display: flex;
+            }
+
+            .search-bar input {
+                width: 70%;
+                margin-bottom: 10px;
+            }
+
+            .back-btn {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto; /* Horizontal scroll for small screens */
+                white-space: nowrap;
+            }
+
+            .back-btn {
+                width: 100px;
+                font-size: 12px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .search-bar input {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .back-btn {
+                margin: 10px auto;
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body style="background-color: #f9f9f9;">
+    <!-- Header -->
+    {% include 'header.html' %}
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <form method="post" action="{{ url_for('search') }}" class="d-flex" role="search">
+            <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+             
+        </form>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-end">
+        <a href="{{ url_for('admin_dashboard') }}" class="back-btn">Back</a>
+    </div>
+
+    <!-- Page Title -->
+    <h3 class="text-center text-primary mt-0">Employee Details</h3>
+
+    <!-- Employee Table -->
+    <div class="container mt-3">
+        <div class="table-responsive"> <!-- Make the table scrollable on smaller devices -->
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Emp_Id</th>
+                        <th>FullName</th>
+                        <th>Designation</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>All Info</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if emp_data %}
+                    {% for emp in emp_data %}
+                    <tr>
+                        <td>{{ emp.emp_id }}</td>
+                        <td>{{ emp.first_name }} {{ emp.last_name }}</td>
+                        <td>{{ emp.designation }}</td>
+                        <td>{{ emp.email }}</td>
+                        <td>{{ emp.department }}</td>
+                        <td><a href="{{ url_for('view_details', emp_id=emp.emp_id) }}">View</a></td>
+                        <td><a href="{{ url_for('salary', emp_id=emp.emp_id) }}">Details</a></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No employee data available.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

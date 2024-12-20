@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url('https://c0.wallpaperflare.com/preview/751/2/550/chart-graph-business-finance.jpg');
+            /* background-image: url('https://c0.wallpaperflare.com/preview/807/1021/167/chart-graph-business-finance.jpg'); */
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* background-size: 60% ; */
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            
+        }
+
+        /* Centered Form Container */
+        .form-container {
+            margin: 30px auto;
+            background-color: transparent;
+            border-radius: 10px;
+            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+            padding: 2em;
+            max-width: 600px;
+            box-shadow: 1px 2px 2px 2px rgba(250, 248, 248, 0.753);
+            /* border:1px solid #fff; */
+            margin-bottom: 10%;
+        }
+
+        h3 {
+            text-align: center;
+            color:#fff;
+            margin-bottom: 1em;
+        }
+        .form-label{
+        color:white;
+        font-weight: bold;
+        }
+        
+
+        .form-group input,
+        .form-group textarea {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0.3, 0.4); 
+            
+           
+        }
+       
+        
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1em;
+        }
+
+        button, .back-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            color: white;
+            width: 48%;
+        }
+
+        button {
+            background-color: #1c0fd4;
+        }
+
+        button:hover {
+            background-color: #6c68a0;
+        }
+
+        .back-button {
+            background-color: #d3d61fa6;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .back-button:hover {
+            background-color: #888888;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 576px) {
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            button, .back-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="text-center text-primary mt-3">
+                    <h5>{{ message }}</h5>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Centered Form -->
+    <div class="container">
+        <div class="form-container">
+            <h3>Employee Update Profile</h3>
+            <form action="{{ url_for('update_profile') }}" method="POST">
+                <!-- Employee ID -->
+                <div class="mb-2">
+                    <label for="emp_id" class="form-label">Employee ID:</label>
+                    <input type="text" id="emp_id" name="emp_id" value="{{ emp_data[0] }}" class="form-control" placeholder="Employee ID" required>
+                </div>
+
+                <!-- First Name -->
+                <div class="mb-2">
+                    <label for="first_name" class="form-label">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" value="{{ emp_data[1] }}" class="form-control" placeholder="First Name" required>
+                </div>
+
+                <!-- Last Name -->
+                <div class="mb-2">
+                    <label for="last_name" class="form-label">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" value="{{ emp_data[2] }}" class="form-control" placeholder="Last Name" required>
+                </div>
+
+                <!-- Designation -->
+                <div class="mb-2">
+                    <label for="designation" class="form-label">Designation:</label>
+                    <input type="text" id="designation" name="designation" value="{{ emp_data[3] }}" class="form-control" placeholder="Designation" required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-2">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ emp_data[4] }}" class="form-control" placeholder="Email" required>
+                </div>
+
+                <!-- Address -->
+                <div class="mb-2">
+                    <label for="address" class="form-label">Address:</label>
+                    <textarea id="address" name="address" class="form-control" rows="3" placeholder="Address" required>{{ emp_data[6] }}</textarea>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="mb-2">
+                    <label for="phone_number" class="form-label">Phone Number:</label>
+                    <input type="number" id="phone_number" name="phone_number" value="{{ emp_data[7] }}" class="form-control" placeholder="Phone Number" required>
+                </div>
+
+                <!-- Department -->
+                <div class="mb-2">
+                    <label for="department" class="form-label">Department:</label>
+                    <input type="text" id="department" name="department" value="{{ emp_data[8] }}" class="form-control" placeholder="Department" required>
+                </div>
+
+                <!-- Salary -->
+                <div class="mb-2">
+                    <label for="salary" class="form-label">Salary:</label>
+                    <input type="number" id="salary" name="salary" value="{{ emp_data[9] }}" class="form-control" placeholder="Salary" required>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="submit">Submit</button>
+                    <a href="{{ url_for('welcome') }}" class="back-button">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+</body>
+</html>
