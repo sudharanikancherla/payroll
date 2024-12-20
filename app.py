@@ -3,7 +3,7 @@ from flask_session import Session
 import mysql.connector
 from otp import genotp
 from cmail import sendmail
-# import re
+import os
 from datetime import datetime
 from  datetime import date
 app=Flask(__name__)
@@ -11,13 +11,19 @@ app.config['SESSION_TYPE']='filesystem'
 Session(app)
 app.secret_key = 'a8b9c2d40f214e7a8d1d29a04a3c5f7e9b1d6c0a9f2b3a4e'
 #for aws quries
-'''with mysql.connector.connect(host='localhost',user='root',password='Admin',db='payroll') as conn:
+user=os.environ.get('RDS_USERNAME')
+db=os.environ.get('RDS_DB_NAME')
+password=os.environ.get('RDS_PASSWORD')
+host=os.environ.get('RDS_HOSTNAME')
+port=os.environ.get('RDS_PORT')
+with mysql.connector.connect(host=host,password=password,db=db,user=user,port=port) as conn:
     cursor=conn.cursor()
     cursor.execute("CREATE TABLE if not exists emp_registration(emp_id varchar(20) NOT NULL,first_name varchar(50) NOT NULL,last_name varchar(50) NOT NULL,designation varchar(20) NOT NULL,email varchar(50) NOT NULL,password varchar(20) NOT NULL,address text,phone_number varchar(10) NOT NULL,department varchar(20) NOT NULL,salary int unsigned NOT NULL,gender enum('Male','Female','Others') DEFAULT NULL,PRIMARY KEY (emp_id),UNIQUE KEY email (email))")
     cursor.execute("CREATE TABLE if not exists emp_records(emp_id varchar(20) NOT NULL,username varchar(50) DEFAULT NULL,date date DEFAULT NULL,checkin_time time DEFAULT NULL,checkout_time time DEFAULT NULL,KEY emp_id (emp_id),CONSTRAINT emp_records_ibfk_1 FOREIGN KEY (emp_id) REFERENCES emp_registration (emp_id))")
     cursor.execute("CREATE TABLE if not exists otp(OID int NOT NULL AUTO_INCREMENT,Email varchar(80) DEFAULT NULL,otp varchar(9) DEFAULT NULL,PRIMARY KEY (OID))")
     cursor.execute("CREATE TABLE if not exists work_status(emp_id varchar(20) NOT NULL,date datetime DEFAULT CURRENT_TIMESTAMP,work_status text NOT NULL,KEY emp_id(emp_id),CONSTRAINT work_status_ibfk_1 FOREIGN KEY (emp_id) REFERENCES emp_registration(emp_id))")
-# mydb=mysql.connector.connect(host=localhost,user=root,password=Admin,db=db,)'''
+
+mydb=mysql.connector.connect(host=host,password=password,db=db,user=user,port=port)
 
 
 @app.route('/')
