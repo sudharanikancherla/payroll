@@ -37,7 +37,7 @@ def admin():
           password = request.form['password']
           scecurty = request.form['passcode']
           print("frontent data",email,password,scecurty)
-          if email=='sudharanikancherla1@gmail.com' and password==123 and scecurty =='123#' :        
+          if email=='sudharanikancherla1@gmail.com' and password=='asd@123' and scecurty =='123#' :        
         #database connection
         #   cursor=mydb.cursor(buffered=True)
         #   cursor.execute('select email,username,password,passcode from admin')#already inserted values in the table
