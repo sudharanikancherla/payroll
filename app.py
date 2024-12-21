@@ -37,19 +37,20 @@ def admin():
           password = request.form['password']
           scecurty = request.form['passcode']
           print("frontent data",email,password,scecurty)
-          #database connection
-          cursor=mydb.cursor(buffered=True)
-          cursor.execute('select email,username,password,passcode from admin')#already inserted values in the table
-          data=cursor.fetchone()
-          cursor.close()
+          if email=='sudharanikancherla1@gmail.com' and password==123 and passcode =='123#' :        
+        #database connection
+        #   cursor=mydb.cursor(buffered=True)
+        #   cursor.execute('select email,username,password,passcode from admin')#already inserted values in the table
+        #   data=cursor.fetchone()
+        #   cursor.close()
           
-          print("mysql data",data[0],data[2],data[3])
-          if data[0] == email and data[2]==password and data[3]==scecurty:
-               print('Login successfully')
-               return redirect(url_for('admin_dashboard'))
+        #   print("mysql data",data[0],data[2],data[3])
+        #   if data[0] == email and data[2]==password and data[3]==scecurty:
+            print('Login successfully')
+            return redirect(url_for('admin_dashboard'))
           else:
-               flash('Invalid credentials, please try again')
-               return redirect(url_for('admin'))          
+                flash('Invalid credentials, please try again')
+                return redirect(url_for('admin'))          
      return render_template('adminlogin.html')
 #admin_dashboard route
 @app.route('/admin_dashboard')
